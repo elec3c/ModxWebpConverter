@@ -1,6 +1,6 @@
 <?php
 if ($modx->event->name =='OnFileManagerUpload') {
-	$modx->runSnippet('WebPConvertor',array(
+	$modx->runSnippet('WebPConverter',array(
         'url' => $directory.$files['file']['name']
      ));
 }
@@ -33,7 +33,7 @@ if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT']
 				if (file_exists($img_webp))
     			    $content = str_replace($img_real, $img_webp, $content); 
 				else{
-				    $img_webp = $modx->runSnippet('WebPConvertor',array(
+				    $img_webp = $modx->runSnippet('WebPConverter',array(
                     'url' => $img_real
                     ));
 				}
@@ -61,7 +61,7 @@ if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT']
 				if (file_exists($img_webp))
     			    $content = str_replace($img_real, $img_webp, $content); 
 				else{
-				    $img_webp = $modx->runSnippet('WebPConvertor',array(
+				    $img_webp = $modx->runSnippet('WebPConverter',array(
                     'url' => $img_real
                     ));
 				}
