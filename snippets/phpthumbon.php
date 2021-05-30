@@ -22,6 +22,6 @@ if(!($flag = ($modx->phpThumbOn instanceof phpThumbOn))){
     $modx->phpThumbOn = null;
 }
 
-$modx->runSnippet('WebPConvertor',array('url' => $modx->phpThumbOn->run($scriptProperties)));
+$modx->runSnippet('WebPConverter',array('url' => $modx->phpThumbOn->run($scriptProperties)));
 
 return $flag ? $modx->phpThumbOn->run($scriptProperties) : $modx->getOption('phpthumbon.noimage', $scriptProperties);
