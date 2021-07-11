@@ -13,6 +13,7 @@ if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT']
 	$content = &$modx->resource->_output; 
 	$imgs = array();
 	preg_match_all('/<img[^>]+>/i',$content, $result); 
+	$modx->log(MODX_LOG_LEVEL_DEBUG, print_r($result));
 	if (count($result))
 	{
 		foreach($result[0] as $img_tag)
@@ -40,8 +41,10 @@ if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT']
 			}
 		}
 	}
+	$result='';
 	preg_match_all('/url\(([^)]*)"?\)/iu', $content, $result);
 	$imgs = array();
+	$modx->log(MODX_LOG_LEVEL_DEBUG, print_r($result));
 	if (count($result))
 	{
 		foreach($result[1] as $img_tag)
@@ -68,5 +71,6 @@ if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT']
 			}
 		}
 	}
+
 	$modx->Event->output($content);
 }
