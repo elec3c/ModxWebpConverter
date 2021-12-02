@@ -12,17 +12,23 @@ if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT']
 	$content = $modx->Event->params['documentOutput'];     
 	$content = &$modx->resource->_output; 
 	$imgs = array();
-	preg_match_all('/<img[^>]+>/i',$content, $result); 
-	$modx->log(MODX_LOG_LEVEL_DEBUG, print_r($result));
+	
+	preg_match_all('/<source[^>]+>/i',$content, $result1); 
+    	preg_match_all('/<img[^>]+>/i',$content, $result2);
+    	$result = array(array_merge($result1[0], $result2[0]));
+	
 	if (count($result))
 	{
 		foreach($result[0] as $img_tag)
-		{			
-			preg_match('/(src)=("[^"]*")/i',$img_tag, $img[$img_tag]);						
+		{		
+			preg_match('/(src)=("[^"]*")/i',$img_tag, $img[$img_tag]);		
+			if (!$img[$img_tag])
+			    preg_match('/(srcset)=("[^"]*")/i',$img_tag, $img[$img_tag]);
 			$img_real = str_replace('"','',$img[$img_tag][2]);
 			$img_real = str_replace('./','',$img_real);			
 	 	 	 if ((strpos($img_real, '.jpg')!==false) or (strpos($img_real, '.jpeg')!==false) or (strpos($img_real, '.png')!==false)) $imgs[] = $img_real; 					
 		}
+
 		$imgs = array_unique($imgs);
 		foreach($imgs as $img_real)
 		{
@@ -42,9 +48,10 @@ if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT']
 		}
 	}
 	$result='';
+	
+	
 	preg_match_all('/url\(([^)]*)"?\)/iu', $content, $result);
 	$imgs = array();
-	$modx->log(MODX_LOG_LEVEL_DEBUG, print_r($result));
 	if (count($result))
 	{
 		foreach($result[1] as $img_tag)
