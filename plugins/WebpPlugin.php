@@ -8,6 +8,10 @@ if ($modx->event->name =='OnFileManagerFileRemove') {
     if(file_exists($path.".webp"))
         unlink($path.".webp");
 }
+if ($modx->event->name =='OnFileManagerFileRename') {
+    if(file_exists($modx->getOption('base_path').$_POST['path'].".webp"))
+        rename($modx->getOption('base_path').$_POST['path'].".webp", $path.".webp");
+}
 if($modx->event->name == 'OnWebPagePrerender' && stripos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false){
 	$content = $modx->Event->params['documentOutput'];     
 	$content = &$modx->resource->_output; 
