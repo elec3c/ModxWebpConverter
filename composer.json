@@ -1,8 +1,3 @@
 {
-  "name": "elec3c/modxwebpconverter",
-  "require": {
-    "guzzlehttp/guzzle": "*",
-    "guzzlehttp/guzzle-services": "*",
-    "gimler/guzzle-description-loader": "*"
-  }
+  "name": "elec3c/modxwebpconverter"
 }
