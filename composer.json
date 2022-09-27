@@ -1,10 +1,5 @@
 {
   "name": "elec3c/modxwebpconverter",
-  "autoload": {
-    "classmap": [
-      "src/"
-    ]
-  },
   "require": {
     "guzzlehttp/guzzle": "*",
     "guzzlehttp/guzzle-services": "*",
