@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # Проверка поддержки WebP через HTTP_ACCEPT
+  RewriteCond %{HTTP_ACCEPT} image/webp
+
+  # Проверка наличия .webp файла
+  RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
+
+  # Перенаправление на WebP версию изображения
+  RewriteRule (.+)\.(jpe?g|png)$ $1.$2.webp [T=image/webp,E=accept:1]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Добавляем Vary Header, когда WebP поддерживается
+  Header append Vary Accept env=REDIRECT_accept
+</IfModule>
+
+<IfModule mod_mime.c>
+  # Указываем MIME тип для .webp файлов
+  AddType image/webp .webp
+</IfModule>
